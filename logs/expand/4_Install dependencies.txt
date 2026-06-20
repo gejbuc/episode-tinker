@@ -1,0 +1,36 @@
+﻿2026-06-20T08:17:10.6190774Z ##[group]Run pip install -r requirements.txt
+2026-06-20T08:17:10.6191346Z [36;1mpip install -r requirements.txt[0m
+2026-06-20T08:17:10.6327547Z shell: /usr/bin/bash -e {0}
+2026-06-20T08:17:10.6327974Z env:
+2026-06-20T08:17:10.6328330Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:10.6329239Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+2026-06-20T08:17:10.6329764Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:10.6330252Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:10.6330699Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:10.6331186Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib
+2026-06-20T08:17:10.6331594Z ##[endgroup]
+2026-06-20T08:17:12.4177170Z Collecting requests (from -r requirements.txt (line 2))
+2026-06-20T08:17:12.5237932Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+2026-06-20T08:17:12.5947413Z Collecting pytz (from -r requirements.txt (line 3))
+2026-06-20T08:17:12.6139666Z   Downloading pytz-2026.2-py2.py3-none-any.whl.metadata (22 kB)
+2026-06-20T08:17:12.6724237Z Collecting pyyaml (from -r requirements.txt (line 4))
+2026-06-20T08:17:12.6913502Z   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+2026-06-20T08:17:12.8136262Z Collecting charset_normalizer<4,>=2 (from requests->-r requirements.txt (line 2))
+2026-06-20T08:17:12.8327840Z   Downloading charset_normalizer-3.4.7-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+2026-06-20T08:17:12.8705829Z Collecting idna<4,>=2.5 (from requests->-r requirements.txt (line 2))
+2026-06-20T08:17:12.8896502Z   Downloading idna-3.18-py3-none-any.whl.metadata (6.1 kB)
+2026-06-20T08:17:12.9240885Z Collecting urllib3<3,>=1.26 (from requests->-r requirements.txt (line 2))
+2026-06-20T08:17:12.9428165Z   Downloading urllib3-2.7.0-py3-none-any.whl.metadata (6.9 kB)
+2026-06-20T08:17:12.9742039Z Collecting certifi>=2023.5.7 (from requests->-r requirements.txt (line 2))
+2026-06-20T08:17:12.9931678Z   Downloading certifi-2026.6.17-py3-none-any.whl.metadata (2.5 kB)
+2026-06-20T08:17:13.0168501Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+2026-06-20T08:17:13.0455715Z Downloading charset_normalizer-3.4.7-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (216 kB)
+2026-06-20T08:17:13.0854593Z Downloading idna-3.18-py3-none-any.whl (65 kB)
+2026-06-20T08:17:13.1063765Z Downloading urllib3-2.7.0-py3-none-any.whl (131 kB)
+2026-06-20T08:17:13.1289874Z Downloading pytz-2026.2-py2.py3-none-any.whl (510 kB)
+2026-06-20T08:17:13.1847655Z Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+2026-06-20T08:17:13.2097262Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 27.2 MB/s  0:00:00
+2026-06-20T08:17:13.2286668Z Downloading certifi-2026.6.17-py3-none-any.whl (133 kB)
+2026-06-20T08:17:13.3988322Z Installing collected packages: pytz, urllib3, pyyaml, idna, charset_normalizer, certifi, requests
+2026-06-20T08:17:13.7702409Z 
+2026-06-20T08:17:13.7717493Z Successfully installed certifi-2026.6.17 charset_normalizer-3.4.7 idna-3.18 pytz-2026.2 pyyaml-6.0.3 requests-2.34.2 urllib3-2.7.0

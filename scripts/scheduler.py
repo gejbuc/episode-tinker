@@ -12,6 +12,7 @@ Requires env vars:
 """
 import os
 import time
+import json
 import requests
 from datetime import datetime, timedelta
 
@@ -49,7 +50,7 @@ def _patch_payload(github_token: str, dispatch_body: dict = None) -> dict:
                     "User-Agent": "cron-job-org-trigger",
                     "X-GitHub-Api-Version": "2022-11-28",
                 },
-                "body": requests.utils.json.dumps(body),
+                "body": json.dumps(body),
             },
         }
     }

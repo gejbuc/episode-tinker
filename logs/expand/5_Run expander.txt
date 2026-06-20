@@ -1,0 +1,35 @@
+﻿2026-06-20T08:17:13.8277186Z ##[group]Run python scripts/expander.py
+2026-06-20T08:17:13.8277593Z [36;1mpython scripts/expander.py[0m
+2026-06-20T08:17:13.8313764Z shell: /usr/bin/bash -e {0}
+2026-06-20T08:17:13.8314053Z env:
+2026-06-20T08:17:13.8314346Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:13.8314815Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib/pkgconfig
+2026-06-20T08:17:13.8315304Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:13.8315700Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:13.8316100Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.13/x64
+2026-06-20T08:17:13.8316498Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.13/x64/lib
+2026-06-20T08:17:13.8317181Z   CRONJOB_TOKEN: ***
+2026-06-20T08:17:13.8317793Z   GITHUB_TOKEN: ***
+2026-06-20T08:17:13.8318068Z   NTfy_TOPIC: ***
+2026-06-20T08:17:13.8318310Z ##[endgroup]
+2026-06-20T08:17:16.7369403Z Traceback (most recent call last):
+2026-06-20T08:17:16.7378018Z   File "/home/runner/work/episode-tinker/episode-tinker/scripts/expander.py", line 145, in <module>
+2026-06-20T08:17:16.7378989Z [expander] Expanding episodes from now until 2026-07-04 11:17 (Africa/Nairobi)
+2026-06-20T08:17:16.7379930Z     run_expander(config)
+2026-06-20T08:17:16.7380679Z   File "/home/runner/work/episode-tinker/episode-tinker/scripts/expander.py", line 126, in run_expander
+2026-06-20T08:17:16.7381243Z     schedule_episode_alert(
+2026-06-20T08:17:16.7381828Z   File "/home/runner/work/episode-tinker/episode-tinker/scripts/scheduler.py", line 152, in schedule_episode_alert
+2026-06-20T08:17:16.7382495Z     _create_job(event_name, body, github_token, cronjob_token, dispatch_body)
+2026-06-20T08:17:16.7383132Z   File "/home/runner/work/episode-tinker/episode-tinker/scripts/scheduler.py", line 81, in _create_job
+2026-06-20T08:17:16.7383676Z     json=_patch_payload(github_token, dispatch_body),
+2026-06-20T08:17:16.7384016Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-06-20T08:17:16.7384568Z   File "/home/runner/work/episode-tinker/episode-tinker/scripts/scheduler.py", line 52, in _patch_payload
+2026-06-20T08:17:16.7385096Z     "body": requests.utils.json.dumps(body),
+2026-06-20T08:17:16.7385399Z             ^^^^^^^^^^^^^^^^^^^
+2026-06-20T08:17:16.7385754Z AttributeError: module 'requests.utils' has no attribute 'json'
+2026-06-20T08:17:16.7386031Z 
+2026-06-20T08:17:16.7386161Z [expander] Loading interest: example_show
+2026-06-20T08:17:16.7386366Z 
+2026-06-20T08:17:16.7386532Z [expander] Scheduling event: Example Show S01E01 - Pilot
+2026-06-20T08:17:16.7387264Z   ⏰ Created job 7867044 for 'Example Show S01E01 - Pilot' at 08:52 UTC
+2026-06-20T08:17:16.7624898Z ##[error]Process completed with exit code 1.
