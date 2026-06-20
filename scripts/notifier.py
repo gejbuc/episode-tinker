@@ -10,7 +10,12 @@ import yaml
 import requests
 from pathlib import Path
 
-CONFIG_PATH = Path(__file__).parent.parent / "config.yaml"
+# Add repo root to Python path
+REPO_ROOT = Path(__file__).parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+CONFIG_PATH = REPO_ROOT / "config.yaml"
 
 
 def load_config() -> dict:

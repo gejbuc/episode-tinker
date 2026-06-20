@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 
 CRONJOB_API = "https://api.cron-job.org"
 GITHUB_REPO = "gejbuc/episode-tinker"
-EPISODE_ALERT_WORKFLOW_ID = "episode_alert.yml"
+EPISODE_ALERT_WORKFLOW_ID = "299252925"
 
 # Tag prefix so we can find and clean up our jobs
 EPISODE_JOB_TITLE_PREFIX = "episode-tinker-air"
