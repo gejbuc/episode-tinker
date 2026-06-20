@@ -2,6 +2,7 @@
 notifications:
   ntfy_topic: "your-topic"
   timezone: "Africa/Nairobi"
+  lookahead_days: 30  # how many days ahead to look for upcoming episodes
 
 interests:
   dutton_ranch:

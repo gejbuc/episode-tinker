@@ -66,7 +66,8 @@ def run_expander(config: dict):
     tz_name = config["notifications"].get("timezone", "UTC")
     tz = pytz.timezone(tz_name)
     now = datetime.now(timezone.utc)
-    window_end = now + timedelta(days=14)  # Look ahead 14 days
+    lookahead_days = config["notifications"].get("lookahead_days", 14)
+    window_end = now + timedelta(days=lookahead_days)
     print(f"[expander] Expanding episodes from now until {window_end.astimezone(tz).strftime('%Y-%m-%d %H:%M')} ({tz_name})")
 
     cronjob_token = os.getenv("CRONJOB_TOKEN")
