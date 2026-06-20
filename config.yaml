@@ -1,0 +1,8 @@
+# config.yaml
+notifications:
+  ntfy_topic: "your-topic"
+  timezone: "Africa/Nairobi"
+
+interests:
+  example_show:
+    enabled: true

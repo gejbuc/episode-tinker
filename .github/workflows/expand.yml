@@ -1,0 +1,23 @@
+name: Expander
+
+on:
+  workflow_dispatch:
+
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run expander
+        env:
+          CRONJOB_TOKEN: ${{ secrets.CRONJOB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MORNING_GH_PAT }}
+          NTfy_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python scripts/expander.py
