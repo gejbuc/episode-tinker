@@ -1,10 +1,11 @@
 # scripts/interests/dutton_ranch.py
 """
 Interest module for Dutton Ranch (IMDb tt34991493).
-Fetches upcoming episodes from TVMaze API.
+Fetches upcoming episodes from TVMaze API, with manually corrected airtime:
+3:00 AM ET / 00:00 AM PT (07:00 UTC) every Friday!
 """
 import requests
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 
 def get_events(config: dict) -> list:
@@ -25,13 +26,20 @@ def get_events(config: dict) -> list:
 
     events = []
     for ep in episodes:
-        # Skip episodes without airdate/airstamp
-        if not ep.get("airstamp") or not ep.get("airdate"):
+        # Skip episodes without airdate
+        if not ep.get("airdate"):
             continue
 
-        # Parse airstamp into timezone-aware datetime
+        # Parse date, then set correct time: 07:00 UTC (3 AM ET / 00:00 PT)
         try:
-            air_time = datetime.fromisoformat(ep["airstamp"].replace("Z", "+00:00"))
+            # Parse airdate into date object
+            air_date = datetime.strptime(ep["airdate"], "%Y-%m-%d").date()
+            # Combine with correct time: 07:00 UTC
+            air_time = datetime.combine(
+                air_date,
+                datetime.min.time().replace(hour=7, minute=0, second=0),
+                timezone.utc
+            )
         except (ValueError, KeyError):
             continue
 
