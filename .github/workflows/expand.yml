@@ -8,6 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MORNING_GH_PAT }}
+      - name: Configure git user
+        run: |
+          git config --global user.name "episode-tinker[bot]"
+          git config --global user.email "episode-tinker[bot]@users.noreply.github.com"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -19,5 +25,5 @@ jobs:
         env:
           CRONJOB_TOKEN: ${{ secrets.CRONJOB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.MORNING_GH_PAT }}
-          NTfy_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python scripts/expander.py

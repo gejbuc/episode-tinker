@@ -25,6 +25,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MORNING_GH_PAT }}
+      - name: Configure git user
+        run: |
+          git config --global user.name "episode-tinker[bot]"
+          git config --global user.email "episode-tinker[bot]@users.noreply.github.com"
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -34,8 +40,13 @@ jobs:
         run: pip install -r requirements.txt
       - name: Send notification
         env:
+          INPUT_EVENT_ID: ${{ inputs.event_id }}
           INPUT_TITLE: ${{ inputs.title }}
           INPUT_MESSAGE: ${{ inputs.message }}
           INPUT_TAGS: ${{ inputs.tags }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python scripts/notifier.py
+      - name: Commit and push state.json if changed
+        run: |
+          git add state.json || echo "No state.json to commit"
+          git diff --quiet && echo "No changes to state.json" || (git commit -m "Update state: mark ${INPUT_EVENT_ID:-episode} as sent" && git push)
