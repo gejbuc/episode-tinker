@@ -1,9 +1,8 @@
 # scripts/scheduler.py
 """
 Manages one-time cron-job.org jobs for episode alerts.
-
-Called by the expander run after it finds upcoming episodes.
-For each episode it creates cron-job.org jobs that trigger GitHub workflows:
+Called by the morning run after it finds today's events.
+For each event it creates cron-job.org jobs that trigger GitHub workflows:
   - episode alert at (air_time + 5 minutes)
 
 Requires env vars:
@@ -93,7 +92,7 @@ def _create_job(label: str, body: dict, github_token: str, cronjob_token: str, d
 
 
 def cleanup_stale_jobs(cronjob_token: str):
-    """Delete any leftover episode alert jobs from previous runs."""
+    """Delete any leftover episode alert jobs from previous days."""
     resp = requests.get(f"{CRONJOB_API}/jobs", headers=_headers(cronjob_token), timeout=10)
     resp.raise_for_status()
     jobs = resp.json().get("jobs", [])
@@ -108,13 +107,13 @@ def cleanup_stale_jobs(cronjob_token: str):
 
 def schedule_episode_alert(
     event_id: str,
-    event_name: str,
+    title: str,
+    message: str,
     air_time: datetime,
     cronjob_token: str,
     github_token: str,
     alert_delay_minutes: int = 5,
     stagger_minutes: int = 0,
-    dispatch_inputs: dict = None,
 ):
     """
     Create a one-time cron-job.org job that fires `alert_delay_minutes` after air_time.
@@ -123,15 +122,18 @@ def schedule_episode_alert(
     The job triggers the GitHub episode alert workflow via workflow_dispatch.
     """
     fire_time = air_time + timedelta(minutes=alert_delay_minutes) + timedelta(minutes=stagger_minutes)
-    # Set expiration to 1 hour after fire time so job auto-expires just in case
-    expires_at = int((fire_time + timedelta(hours=1)).timestamp() * 1000)
 
-    # Build dispatch body
-    dispatch_body = {"ref": "master"}
-    if dispatch_inputs:
-        dispatch_body["inputs"] = dispatch_inputs
+    # Build dispatch body with inputs
+    dispatch_body = {
+        "ref": "master",
+        "inputs": {
+            "event_id": event_id,
+            "title": title,
+            "message": message,
+            "tags": "calendar,bell"
+        }
+    }
 
-    # Set specific month and day so the job only fires on the correct date!
     body = {
         "job": {
             "title": f"{EPISODE_JOB_TITLE_PREFIX}:{event_id[:40]}",
@@ -144,11 +146,11 @@ def schedule_episode_alert(
                 "timezone": "UTC",
                 "hours":   [fire_time.hour],
                 "minutes": [fire_time.minute],
-                "mdays":   [fire_time.day],
-                "months":  [fire_time.month],
+                "mdays":   [-1],
+                "months":  [-1],
                 "wdays":   [-1],
-                "expiresAt": expires_at,
+                "expiresAt": 0,
             },
         }
     }
-    _create_job(event_name, body, github_token, cronjob_token, dispatch_body)
+    _create_job(event_id, body, github_token, cronjob_token, dispatch_body)

@@ -116,21 +116,15 @@ def run_expander(config: dict):
             continue
 
         print(f"\n[expander] Scheduling event: {event['name']}")
-        dispatch_inputs = {
-            "event_id": event.get("id", ""),
-            "title": event.get("title", "Episode"),
-            "message": event.get("message", f"New episode aired: {event['name']}"),
-            "tags": "calendar,bell",
-        }
 
         schedule_episode_alert(
             event_id=event_id,
-            event_name=event["name"],
+            title=event.get("title", "Episode"),
+            message=event.get("message", f"New episode aired: {event['name']}"),
             air_time=event["start_time"],
             cronjob_token=cronjob_token,
             github_token=github_token,
             stagger_minutes=scheduled_idx,
-            dispatch_inputs=dispatch_inputs,
         )
         scheduled_idx += 1
 
