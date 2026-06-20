@@ -134,6 +134,12 @@ def schedule_episode_alert(
         }
     }
 
+    # expiresAt format is YYYYMMDDhhmmss in the job's timezone (UTC here).
+    # Set it to 1 minute after fire_time so the job auto-expires right after
+    # its single execution and never repeats.
+    expires_at_dt = fire_time + timedelta(minutes=1)
+    expires_at_str = int(expires_at_dt.strftime("%Y%m%d%H%M%S"))
+
     body = {
         "job": {
             "title": f"{EPISODE_JOB_TITLE_PREFIX}:{event_id[:40]}",
@@ -146,10 +152,10 @@ def schedule_episode_alert(
                 "timezone": "UTC",
                 "hours":   [fire_time.hour],
                 "minutes": [fire_time.minute],
-                "mdays":   [-1],
-                "months":  [-1],
-                "wdays":   [-1],
-                "expiresAt": 0,
+                "mdays":   [fire_time.day],    # pin to exact day of month
+                "months":  [fire_time.month],  # pin to exact month
+                "wdays":   [-1],               # any day of week (mdays already pins the date)
+                "expiresAt": expires_at_str,   # auto-expire 1 min after firing
             },
         }
     }
