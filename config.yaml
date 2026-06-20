@@ -6,3 +6,5 @@ notifications:
 interests:
   dutton_ranch:
     enabled: true
+  house_of_the_dragon:
+    enabled: true
