@@ -123,7 +123,7 @@ def schedule_episode_alert(
     The job triggers the GitHub episode alert workflow via workflow_dispatch.
     """
     fire_time = air_time + timedelta(minutes=alert_delay_minutes) + timedelta(minutes=stagger_minutes)
-    # Set expiration to 1 hour after fire time so job auto-expires
+    # Set expiration to 1 hour after fire time so job auto-expires just in case
     expires_at = int((fire_time + timedelta(hours=1)).timestamp() * 1000)
 
     # Build dispatch body
@@ -131,7 +131,7 @@ def schedule_episode_alert(
     if dispatch_inputs:
         dispatch_body["inputs"] = dispatch_inputs
 
-    # cron-job.org requires wildcard mdays/months, but expiresAt prevents it from firing again
+    # Set specific month and day so the job only fires on the correct date!
     body = {
         "job": {
             "title": f"{EPISODE_JOB_TITLE_PREFIX}:{event_id[:40]}",
@@ -144,8 +144,8 @@ def schedule_episode_alert(
                 "timezone": "UTC",
                 "hours":   [fire_time.hour],
                 "minutes": [fire_time.minute],
-                "mdays":   [-1],
-                "months":  [-1],
+                "mdays":   [fire_time.day],
+                "months":  [fire_time.month],
                 "wdays":   [-1],
                 "expiresAt": expires_at,
             },
